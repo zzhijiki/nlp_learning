@@ -1,2 +1,2 @@
 # nlp_learning
- 在datawhale学习nlp文本分类的学习代码
+ 在datawhale学习nlp文本分类的学习经过中书写的代码，希望自己以后可以循环利用
