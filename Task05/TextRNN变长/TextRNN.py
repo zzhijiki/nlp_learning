@@ -9,8 +9,8 @@ class TextRNN(nn.Module):
         super(TextRNN, self).__init__()
         self.embedding = nn.Embedding(vocab_size, embedding_dim)
 
-        self.word_lstm = nn.LSTM(input_size=300,
-                                 hidden_size=100,
+        self.word_lstm = nn.LSTM(input_size=embedding_dim,
+                                 hidden_size=hidden_size,
                                  num_layers=1,
                                  batch_first=True,
                                  bidirectional=True)
