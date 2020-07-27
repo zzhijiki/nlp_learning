@@ -29,12 +29,15 @@ if __name__ == "__main__":
     loader = GetLoader(train_dataset, test_dataset)
 
     # 建立model
-    model = TextRNN(model_embedding.dict_length, embedding_dim=300, hidden_size=100, output_size=14, dropout=0.5)
+    model=TextRNN(model_embedding.dict_length, embedding_dim=300,hidden_size=50, output_size=14, dropout=0.5)
     model.init_weights(model_embedding.embedding, is_static=False)
     model = model.cuda()
     criterion = nn.NLLLoss()
-    opt = torch.optim.Adam(model.parameters(), lr=1e-4)
+    # opt = torch.optim.Adam(model.parameters(), lr=3e-4)
+    # opt = torch.optim.Adagrad(model.parameters(), lr=1e-2)
+    opt = torch.optim.RMSprop(model.parameters(), lr=1e-3) # 只有这个可以train起来,玄学！
+    # opt = torch.optim.SGD(model.parameters(), lr=1e-3)
 
     # 开始训练
     mytrain = TrainFunc(model, criterion, opt, loader.train_loader, loader.valid_loader, loader.test_loader)
-    best_model = mytrain.train(20)
+    best_model = mytrain.train(25)

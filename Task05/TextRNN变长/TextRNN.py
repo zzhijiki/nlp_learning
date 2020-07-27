@@ -34,15 +34,15 @@ class TextRNN(nn.Module):
 
     def forward(self, x):
         _pad, _len = pad_packed_sequence(x, batch_first=True)
-        x_embedding = self.embedding(_pad)
-        x_embedding = x_embedding.view(x_embedding.shape[0], x_embedding.shape[1], -1)
+        x_embedding= self.embedding(_pad)
         output, _ = self.word_lstm(x_embedding)
-        temp = []
         _len = _len - 1
-        for i in range(len(_len)):
-            temp.append(output[i, _len[i], :].tolist())
-        temp = torch.tensor(temp).cuda()
-        # print(temp.shape)
+        
+        #temp = []
+        #for i in range(len(_len)):
+        #    temp.append(output[i, _len[i], :].tolist())
+        # temp = torch.tensor(temp).cuda()
+
+        temp =output[range(len(_len)),_len,:]
         out = self.fc(temp)
-        # print(out.shape)
         return F.log_softmax(out, 1)
