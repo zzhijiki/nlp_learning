@@ -13,8 +13,8 @@ if __name__ == "__main__":
     # 构造模型的参数
     model = FastText(vocab)
     model = model.cuda()
-    criterion = FocalLoss(14).cuda()
-    # criterion = nn.CrossEntropyLoss()
+    # criterion = FocalLoss(14).cuda()
+    criterion = nn.NLLLoss()
     lr = 1e-4
     opt = torch.optim.Adam(model.parameters(), lr)
     # 开始训练，使用验证集获得做好的参数，并进行预测

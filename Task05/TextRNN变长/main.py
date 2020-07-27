@@ -6,7 +6,7 @@ from ModelEmbedding import ModelEmbedding
 from MyDataset import MyDataset
 from GetInit import GetInit
 from TrainFunc import TrainFunc
-from TextCNN import TextCNN
+from TextRNN import TextRNN
 
 if __name__ == "__main__":
     data_root = {
@@ -29,7 +29,7 @@ if __name__ == "__main__":
     loader = GetLoader(train_dataset, test_dataset)
 
     # 建立model
-    model = TextCNN(vocab_size=model_embedding.dict_length, embedding_dim=300, output_size=14)
+    model = TextRNN(model_embedding.dict_length, embedding_dim=300, hidden_size=100, output_size=14, dropout=0.5)
     model.init_weights(model_embedding.embedding, is_static=False)
     model = model.cuda()
     criterion = nn.NLLLoss()
