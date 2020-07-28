@@ -1,5 +1,7 @@
 # nlp_learning
  在datawhale学习nlp文本分类的学习经过中书写的代码，希望自己以后可以循环利用
+ 
+ 学习笔记：[博客](https://www.yuque.com/zzhijiki/ssgfub)
 
 ## Task 02：
 
@@ -47,8 +49,8 @@
 
 有趣的是，变长需要用RMSProp才能train 起来。
 
-等长线下分数：0.932
+TextRNN等长模型 线下分数：0.932
 
-变长线下分数：0.928
+TextRNN变长模型 线下分数：0.928
 
 线上没有提交。
