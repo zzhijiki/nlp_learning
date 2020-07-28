@@ -1,5 +1,7 @@
 # nlp_learning
  在datawhale学习nlp文本分类的学习经过中书写的代码，希望自己以后可以循环利用
+ 
+ 学习笔记：[博客](https://www.yuque.com/zzhijiki/ssgfub)
 
 ## Task 02：
 
@@ -39,3 +41,16 @@
 ### TextCNN
 
 建立了一个TextCNN分类器，提交之后线下分数0.938，线上分数0.937
+
+
+### TextRNN
+
+建立了一个TextRNN分类器，由RNN可以输入变长序列的性质，我们建立了等长（被padding）和变长两种模型。
+
+有趣的是，变长需要用RMSProp才能train 起来。
+
+TextRNN等长模型 线下分数：0.932
+
+TextRNN变长模型 线下分数：0.928
+
+线上没有提交。
