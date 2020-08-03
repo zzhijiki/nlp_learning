@@ -17,6 +17,25 @@ class Attention(nn.Module):
         return out.mul(X).sum(-2)
 
 
+class HAN_Attention_revise(nn.Module):
+    """
+    HAN的attention更新,dot做法
+    sentence_level:input_size =b*l*300,outsize=b*300
+    """
+
+    def __init__(self, in_size=300, hidden_size=200):
+        super(HAN_Attention_revise, self).__init__()
+        self.layer1 = nn.Linear(in_size, hidden_size)
+        self.us = nn.Parameter(torch.FloatTensor(hidden_size), requires_grad=True)  # 200
+
+    def forward(self, X):
+        X1 = X.view(X.shape[1], X.shape[0], X.shape[2])  # l前置， l*b*300
+        U = torch.tanh(self.layer1(X1))  # 构造U l*b*200
+        A = (U * self.us).sum(2)  # 点积，维度 U*self.us  = l*b*200
+        A = F.softmax(A.T, 1).unsqueeze(2)  # softmax 操作+转置，  b*l*1  第1维归一化
+        return A.mul(X).sum(1)
+
+
 class HAN(nn.Module):
     def __init__(self, vocab_size, embedding_dim, hidden_size=100, output_size=14, dropout=0.5):
         super(HAN, self).__init__()
